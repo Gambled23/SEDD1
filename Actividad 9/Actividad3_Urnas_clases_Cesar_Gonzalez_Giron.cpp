@@ -10,7 +10,6 @@ class votos
 {
 private:
     int votoa = 0, votob = 0, votoc = 0, porcentaje1, porcentaje2, porcentaje3;
-    ;
 
 public:
     // getters y setters votos
