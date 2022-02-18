@@ -1,10 +1,9 @@
 #include <iostream>
 using namespace std;
-double resp;
 // a votos totales de atlas
 // b votos totales de chivas
 // c votos totales de toluca
-
+double resp;
 int opc = 0;
 
 class votosa
