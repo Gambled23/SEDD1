@@ -6,10 +6,9 @@ using namespace std;
 void menu();
 class figuras
 {
-private:
+protected:
     double base;
     double altura;
-
 public:
     void setBase(double);
     double getBase();
@@ -80,7 +79,19 @@ double figuras::getAltura()
 }
 void cuadrado::calcularArea()
 {
-    area = _base * base;
+    area = base * base;
+}
+double cuadrado::getArea()
+{
+    return area;
+}
+void triangulo::calcularArea()
+{
+    area = base * base;
+}
+double cuadrado::getArea()
+{
+    return area;
 }
 int main()
 {
