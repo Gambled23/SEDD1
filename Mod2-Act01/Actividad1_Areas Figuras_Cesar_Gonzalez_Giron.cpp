@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cstdlib>
 #include <math.h>
-//TODO: Calcular apotema en la clase del poligono, no preguntarla
 using namespace std;
 void menu();
 double validacion(double);
@@ -155,7 +154,7 @@ double poligono::getLado()
 void poligono::setApotema()
 {
     int angulo;
-    angulo = 360/(2*numLados);
+    angulo = 360 / (2 * numLados);
     apotema = lado / 2 * tan(angulo);
 }
 double poligono::getApotema()
@@ -202,7 +201,7 @@ void menu()
             switch (opc)
             {
             case '0':
-                cout << "Gracias por su preferencia"<<endl;
+                cout << "Gracias por su preferencia" << endl;
                 break;
             case '1':
                 cout << "Ingresa lado" << endl;

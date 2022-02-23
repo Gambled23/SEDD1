@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <math.h>
+#include "validaciones.hpp"
 using namespace std;
 
 void menu();
@@ -9,6 +10,7 @@ class figuras
 protected:
     double base;
     double altura;
+
 public:
     void setBase(double);
     double getBase();
@@ -20,6 +22,7 @@ class cuadrado : public figuras
 {
 private:
     double area;
+
 public:
     void calcularArea();
     double getArea();
@@ -79,7 +82,7 @@ double figuras::getAltura()
 }
 void cuadrado::calcularArea()
 {
-    area = base * base;
+    area = getBase() * getBase();
 }
 double cuadrado::getArea()
 {
@@ -87,12 +90,51 @@ double cuadrado::getArea()
 }
 void triangulo::calcularArea()
 {
-    area = base * base;
+    area = (getBase() * getAltura()) / 2;
 }
-double cuadrado::getArea()
+double triangulo::getArea()
 {
     return area;
 }
+void rectangulo::calcularArea()
+{
+    area = getBase() * getAltura();
+}
+double rectangulo::getArea()
+{
+    return area;
+}
+void poligono::setNumLados(double x)
+{
+    numLados = x;
+}
+double poligono::getNumLados()
+{
+    return numLados;
+}
+void poligono::setApotema()
+{
+    int angulo;
+    angulo = 360 / (numLados);
+    apotema = getBase() / (2 * (tan(angulo/2)));
+    if (apotema < 0)
+    {
+        apotema = apotema *-1; 
+    }
+}
+double poligono::getApotema()
+{
+    return apotema;
+}
+void poligono::calcularArea()
+{
+    area = (numLados * getBase() * apotema) / 2;
+}
+double poligono::getArea()
+{
+    return area;
+}
+
 int main()
 {
     menu();
@@ -102,10 +144,15 @@ int main()
 
 void menu()
 {
-    char opc, num[100];
-    double numeroF;
+    char opcChar[100], numeroChar[100];
+    int opc;
+    double numero;
     // Inicializar objetos
-    /*do
+    cuadrado cua1;
+    triangulo tri1;
+    rectangulo rec1;
+    poligono pol1;
+    do
     {
         system("cls");
         cout << "\tMenu para areas" << endl
@@ -115,119 +162,63 @@ void menu()
              << "4)Poligono regular (5 a 10 lados)" << endl
              << "0)Salir" << endl
              << endl;
-        cin >> opc;
-        if (isdigit(opc)) // Si dato es numero
+        cin >> opcChar;
+        opc = validarNumInt(opcChar);
+        switch (opc)
         {
-            switch (opc)
-            {
-            case '0':
-                cout << "Gracias por su preferencia"<<endl;
-                break;
-            case '1':
-                cout << "Ingresa lado" << endl;
-                cin >> num;
-                if (validacion_isdigit(num) == true)
-                {
-                    numeroF = atof(num);
-                    cua1.setLado(numeroF);
-                    cua1.calcularArea();
-                    cout << "Area: " << cua1.getArea() << endl;
-                }
-                else
-                {
-                    cout << "Has ingresado un caracter que no es un numero";
-                }
+        case 1:
+            cout<<"Ingresa el valor del lado"<<endl;
+            cin>>numeroChar;
+            numero = validarNumDouble(numeroChar);
+            cua1.setBase(numero);
+            cua1.calcularArea();
+            cout<<"El area del cuadrado es: "<<cua1.getArea()<<endl;
 
-                break;
-            case '2':
-                cout << "Ingresa base" << endl;
-                cin >> num;
-                if (validacion_isdigit(num) == true)
-                {
-                    numeroF = atof(num);
-                    rec1.setBase(numeroF);
-                }
-                else
-                {
-                    cout << "Has ingresado un caracter que no es un numero";
-                }
-                cout << "Ingresa altura" << endl;
-                cin >> num;
-                if (validacion_isdigit(num) == true)
-                {
-                    numeroF = atof(num);
-                    rec1.setAltura(numeroF);
-                    rec1.calcularArea();
-                    cout << "Area: " << rec1.getArea() << endl;
-                }
-                else
-                {
-                    cout << "Has ingresado un caracter que no es un numero";
-                }
-                break;
-            case '3':
-                cout << "Ingresa base" << endl;
-                cin >> num;
-                if (validacion_isdigit(num) == true)
-                {
-                    numeroF = atof(num);
-                    tri1.setBase(numeroF);
-                }
-                else
-                {
-                    cout << "Has ingresado un caracter que no es un numero";
-                }
-                cout << "Ingresa altura" << endl;
-                cin >> num;
-                if (validacion_isdigit(num) == true)
-                {
-                    numeroF = atof(num);
-                    tri1.setAltura(numeroF);
-                    tri1.calcularArea();
-                    cout << "Area: " << tri1.getArea() << endl;
-                }
-                else
-                {
-                    cout << "Has ingresado un caracter que no es un numero";
-                }
-                break;
-            case '4':
-                cout << "Ingresa numero de lados (5 a 10)" << endl;
-                cin >> num;
-                if (validacion_isdigit(num) == true)
-                {
-                    numeroF = atof(num);
-                    pol1.setNumLados(numeroF);
-                }
-                else
-                {
-                    cout << "Has ingresado un caracter que no es un numero";
-                }
-                cout << "Ingresa valor del lado" << endl;
-                cin >> num;
-                if (validacion_isdigit(num) == true)
-                {
-                    numeroF = atof(num);
-                    pol1.setLado(numeroF);
-                    pol1.setApotema();
-                    pol1.calcularArea();
-                    cout << "Area: " << pol1.getArea() << endl;
-                }
-                else
-                {
-                    cout << "Has ingresado un caracter que no es un numero";
-                }
-                break;
-            default:
-                cout << "Opcion incorrecta" << endl;
-                break;
-            }
-            system("PAUSE");
+            break;
+        case 2:
+            cout<<"Ingresa el valor de la base"<<endl;
+            cin>>numeroChar;
+            numero = validarNumDouble(numeroChar);
+            rec1.setBase(numero);
+            cout<<"Ingresa el valor de la altura"<<endl;
+            cin>>numeroChar;
+            numero = validarNumDouble(numeroChar);
+            rec1.setAltura(numero);
+            rec1.calcularArea();
+            cout<<"El area del rectangulo es: "<<rec1.getArea()<<endl;
+            break;
+        case 3:
+            cout<<"Ingresa el valor de la base"<<endl;
+            cin>>numeroChar;
+            numero = validarNumDouble(numeroChar);
+            tri1.setBase(numero);
+            cout<<"Ingresa el valor de la altura"<<endl;
+            cin>>numeroChar;
+            numero = validarNumDouble(numeroChar);
+            tri1.setAltura(numero);
+            tri1.calcularArea();
+            cout<<"El area del triangulo es: "<<tri1.getArea()<<endl;
+            break;
+        case 4:
+            cout<<"Ingresa el numero de lados"<<endl;
+            cin>>numeroChar;
+            numero = validarNumDouble(numeroChar);
+            pol1.setNumLados(numero);
+            cout<<"Ingresa el valor de un lado"<<endl;
+            cin>>numeroChar;
+            numero = validarNumDouble(numeroChar);
+            pol1.setBase(numero);
+            pol1.setApotema();
+            pol1.calcularArea();
+            cout<<"El area del poligono es: "<<pol1.getArea()<<endl;
+            break;
+        case 0:
+            cout << "Gracias por su preferencia" << endl;
+            break;
+        default:
+            cout << "Opcion invalida" << endl;
+            break;
         }
-        else
-        {
-            cout << "El dato ingresado NO es numero\n";
-        }
-    } while (opc != '0');
-    */
+        system("PAUSE");
+    } while (opc != 0);
 }
