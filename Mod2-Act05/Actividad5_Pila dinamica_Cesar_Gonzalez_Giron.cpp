@@ -13,7 +13,7 @@ int main()
 
 void menu()
 {
-    //a
+    //aa
     char opcChar[100], elementoChar[100];
     int opc, elemento;
     do
