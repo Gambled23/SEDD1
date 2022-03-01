@@ -29,12 +29,16 @@ double validarNumDouble(char dato[])
 
 int validarNumInt(char dato[])
 {
+    char datoAux [1];
+    datoAux[0] = dato[0];
     int numValidado;
     bool bandera = false;
     do
     {
+        
         if (isdigit(dato[0])) // Si dato es numero
         {
+            //datoAux[0] = dato[0];
             numValidado = atof(dato);
             bandera = true;
         }

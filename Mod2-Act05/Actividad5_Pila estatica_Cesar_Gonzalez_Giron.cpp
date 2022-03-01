@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <windows.h>
+#include "validaciones.hpp"
 using namespace std;
 
 class pila
@@ -26,10 +27,13 @@ pila::pila()
 void pila::push()
 {
     int x;
+    char xChar[1];
+
     if (llena() == 0)
     {
         cout << "ingresa numero" << endl;
-        cin >> x;
+        cin >> xChar;
+        x = validarNumInt(xChar);
         tope++;
         datos[tope] = x;
     }
@@ -54,18 +58,29 @@ void pila::mostrar_tope()
 
 void pila::mostrar_pila()
 {
-    int ayuda, i;
+    int i;
     if (vacia() == 0)
     {
         system("cls");
         printf("\n\n\t\t%c%c%c%c%c  \n", 201, 205, 205, 205, 187);
-        for (i = tope; i >= 0; i--)
+        printf("Tope->");
+        i = tope;
+        do
         {
             printf("\t\t%c ", 186, 205);
             cout << datos[i];
             printf(" %c\n", 186);
-            printf("\t\t%c%c%c%c%c\n", 204, 205, 205, 205, 185);
-        }
+            i--;
+            if (i >= 0)
+            {
+                printf("\t\t%c%c%c%c%c\n", 204, 205, 205, 205, 185); // Linea de en medio
+            }
+            else
+            {
+                printf("\t\t%c%c%c%c%c\n", 200, 205, 205, 205, 188); // Linea final
+            }
+
+        } while (i >= 0);
         // system("pause");
     }
 }
@@ -113,14 +128,16 @@ void pila::gotoxy(int x, int y)
 int main()
 {
     pila p;
-    int opcion, num;
+    int opcion;
+    char opcionChar[100];
 
     do
     {
         system("cls");
         p.mostrar_pila();
         cout << "\n\n[1].ingresar numero\n[2].Eliminar tope\n[3].Mostrar tope\n[4].Mostrar pila\n[5].salir" << endl;
-        cin >> opcion;
+        cin >> opcionChar;
+        opcion = validarNumInt(opcionChar);
         switch (opcion)
         {
         case 1: // system("cls");
@@ -134,6 +151,9 @@ int main()
             break;
         case 4:
             p.mostrar_pila();
+            break;
+        case 5:
+            cout << "Gracias por su preferencia" << endl;
             break;
         default:
             cout << "Opcion incorrecta " << endl;
