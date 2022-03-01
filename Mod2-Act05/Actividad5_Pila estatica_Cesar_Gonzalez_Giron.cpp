@@ -1,55 +1,143 @@
 #include <iostream>
-#include <cstdlib>
-#include "validaciones.hpp"
-
+#include <stdlib.h>
+#include <windows.h>
 using namespace std;
-void menu();
-int main()
-{
 
-    system("PAUSE");
-    return 0;
+class pila
+{
+private:
+    int datos[10], tope;
+
+public:
+    pila();
+    void push();
+    void pop();
+    int vacia();
+    int llena();
+    void mostrar_tope();
+    void mostrar_pila();
+    void gotoxy(int, int);
+};
+
+pila::pila()
+{
+    tope = -1;
+}
+void pila::push()
+{
+    int x;
+    if (llena() == 0)
+    {
+        cout << "ingresa numero" << endl;
+        cin >> x;
+        tope++;
+        datos[tope] = x;
+    }
+}
+void pila::pop()
+{
+    if (vacia() == 0)
+    {
+        datos[tope] = 0;
+        tope--;
+    }
+}
+void pila::mostrar_tope()
+{
+    if (vacia() == 0)
+    {
+        system("cls");
+        cout << "El tope es:  " << datos[tope] << endl;
+        system("pause");
+    }
 }
 
-void menu()
+void pila::mostrar_pila()
 {
-    char opcChar[100], elementoChar[100];
-    int opc, elemento;
+    int ayuda, i;
+    if (vacia() == 0)
+    {
+        system("cls");
+        printf("\n\n\t\t%c%c%c%c%c  \n", 201, 205, 205, 205, 187);
+        for (i = tope; i >= 0; i--)
+        {
+            printf("\t\t%c ", 186, 205);
+            cout << datos[i];
+            printf(" %c\n", 186);
+            printf("\t\t%c%c%c%c%c\n", 204, 205, 205, 205, 185);
+        }
+        // system("pause");
+    }
+}
+
+int pila::vacia()
+{
+    if (tope == -1)
+    {
+        system("cls");
+        cout << "LA PILA ESTA VACIA" << endl;
+        system("pause");
+
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+int pila::llena()
+{
+    if (tope == 9)
+    {
+        system("cls");
+        cout << "LA PILA ESTA LLENA " << endl;
+        system("pause");
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+void pila::gotoxy(int x, int y)
+{
+    HANDLE hcon;
+    hcon = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD dwPos;
+    dwPos.X = x;
+    dwPos.Y = y;
+    SetConsoleCursorPosition(hcon, dwPos);
+}
+
+int main()
+{
+    pila p;
+    int opcion, num;
+
     do
     {
         system("cls");
-        cout << "Menu" << endl;
-        cout << "1) Push" << endl;
-        cout << "2) Pop" << endl;
-        cout << "3) Mostrar tope" << endl;
-        cout << "4) Mostrar pila" << endl;
-        cout << "0) Salir" << endl;
-        cin >> opcChar;
-        opc = validarNumInt(opcChar);
-        switch (opc)
+        p.mostrar_pila();
+        cout << "\n\n[1].ingresar numero\n[2].Eliminar tope\n[3].Mostrar tope\n[4].Mostrar pila\n[5].salir" << endl;
+        cin >> opcion;
+        switch (opcion)
         {
-        case 1:
-            cout << "Cual elemento quiere ingresar a la pila?: ";
-            cin >> elementoChar;
-            elemento = validarNumInt(elementoChar);
+        case 1: // system("cls");
+            p.push();
             break;
         case 2:
-            
-            cout<<"Se ha sacado el elemento de la lista\n";
+            p.pop();
             break;
         case 3:
-            cout<<"El tope de la lista es: "<<endl;
+            p.mostrar_tope();
             break;
         case 4:
-            /* code */
-            break;
-        case 0:
-            cout << "Gracias por su preferencia" << endl;
+            p.mostrar_pila();
             break;
         default:
-            cout << "Opcion invalida" << endl;
-            break;
+            cout << "Opcion incorrecta " << endl;
+            system("pause");
         }
-        system("PAUSE");
-    } while (opc != 0);
+    } while (opcion != 5);
 }

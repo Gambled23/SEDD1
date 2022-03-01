@@ -1,56 +1,130 @@
 #include <iostream>
+
 #include <cstdlib>
-#include "validaciones.hpp"
 
 using namespace std;
-void menu();
+
+class Nodo
+{
+
+public:
+    int value;
+
+    Nodo *next;
+};
+
+void push(Nodo *&pila, int n)
+{
+
+    Nodo *temp = new Nodo();
+
+    temp->value = n;
+
+    temp->next = pila;
+
+    pila = temp;
+};
+
+void pop(Nodo *&pila)
+{
+
+    Nodo *temp = pila;
+
+    pila = temp->next;
+
+    delete (temp);
+};
+
+void display(Nodo *&pila, int cont)
+{
+
+    Nodo *temp = pila;
+
+    while (temp != NULL)
+    {
+
+        if (temp == pila)
+        {
+
+            cout << "\t*" << temp->value << "*";
+
+            temp = temp->next;
+        }
+        else
+        {
+
+            cout << "\t*" << temp->value << "*";
+
+            temp = temp->next;
+        }
+
+        cout << endl;
+    }
+};
+
+int menu()
+{
+
+    int opc;
+
+    cout << "\n  1.- Apilar"
+
+            "\n   2.- Desapilar"
+
+            "\n   0.- Salir"
+         << endl;
+
+    cin >> opc;
+
+    return opc;
+};
+
 int main()
 {
 
-    system("PAUSE");
-    return 0;
-}
+    Nodo *pila = NULL;
 
-void menu()
-{
-    //aa
-    char opcChar[100], elementoChar[100];
-    int opc, elemento;
+    int value, cont = 0, opc = 1;
+
     do
     {
-        system("cls");
-        cout << "Menu" << endl;
-        cout << "1) Push" << endl;
-        cout << "2) Pop" << endl;
-        cout << "3) Mostrar tope" << endl;
-        cout << "4) Mostrar pila" << endl;
-        cout << "0) Salir" << endl;
-        cin >> opcChar;
-        opc = validarNumInt(opcChar);
-        switch (opc)
+
+        switch (menu())
         {
+
         case 1:
-            cout << "Cual elemento quiere ingresar a la pila?: ";
-            cin >> elementoChar;
-            elemento = validarNumInt(elementoChar);
+
+            cont++;
+
+            push(pila, cont);
+
+            system("CLS");
+
+            display(pila, cont);
+
             break;
+
         case 2:
-            
-            cout<<"Se ha sacado el elemento de la lista\n";
+
+            cont--;
+
+            pop(pila);
+
+            system("CLS");
+
+            display(pila, cont);
+
             break;
-        case 3:
-            cout<<"El tope de la lista es: "<<endl;
-            break;
-        case 4:
-            /* code */
-            break;
+
         case 0:
-            cout << "Gracias por su preferencia" << endl;
+
+            opc = 0;
+
             break;
+
         default:
-            cout << "Opcion invalida" << endl;
-            break;
+            std::cout << "\nOpcion no disponible" << '\n';
         }
-        system("PAUSE");
+
     } while (opc != 0);
-}
+};
