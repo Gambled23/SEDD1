@@ -22,40 +22,58 @@ void push(Nodo *&pila, int n)
 void pop(Nodo *&pila)
 {
     Nodo *temp = pila;
-    pila = temp->next;
-    delete (temp);
+    if (temp)
+    {
+        pila = temp->next;
+        cout << "Eliminado valor '" << temp->value << "'" << endl;
+        delete (temp);
+    }
+    else
+    {
+        cout << "Pila vacia" << endl;
+    }
 };
 
-void display(Nodo *&pila, int cont)
+void display(Nodo *&pila)
 {
     Nodo *temp = pila;
-    while (temp != NULL)
+    if (temp)
     {
-        if (temp == pila)
+        while (temp != NULL)
         {
-            cout << "\t*" << temp->value << "*";
-            temp = temp->next;
+            if (temp == pila)
+            {
+                cout << "\t*" << temp->value << "*";
+                temp = temp->next;
+            }
+            else
+            {
+                cout << "\t*" << temp->value << "*";
+                temp = temp->next;
+            }
+            cout << endl;
         }
-        else
-        {
-            cout << "\t*" << temp->value << "*";
-            temp = temp->next;
-        }
-        cout << endl;
+    }
+    else
+    {
+        cout<<"PILA VACIA\n\n";
     }
 };
 
 int main()
 {
-    Nodo *pila = NULL;
-    int value, cont = 0, opc = 1;
+    menu();
+    system("PAUSE");
 };
 void menu()
 {
-    int opc;
-    char opcChar[100];
+    Nodo *pila = NULL;
+    int opc, valor;
+    char opcChar[100], valorChar[100];
     do
     {
+        system("cls");
+        display(pila);
         cout << "1) Push" << endl
              << "2) Pop" << endl
              << "3) Mostrar tope" << endl
@@ -66,16 +84,19 @@ void menu()
         switch (opc)
         {
         case 1:
-            /* code */
+            cout << "Que valor quieres ingresar?" << endl;
+            cin >> valorChar;
+            valor = validarNumInt(valorChar);
+            push(pila, valor);
             break;
         case 2:
-            /* code */
+            pop(pila);
             break;
         case 3:
             /* code */
             break;
         case 4:
-            /* code */
+            display(pila);
             break;
         case 5:
             cout << "Gracias por su preferencia" << endl;
@@ -84,5 +105,6 @@ void menu()
             cout << "Opcion no valida" << endl;
             break;
         }
+        system("PAUSE");
     } while (opc != 5);
 };
