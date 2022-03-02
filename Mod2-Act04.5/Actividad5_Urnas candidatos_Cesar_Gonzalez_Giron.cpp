@@ -6,7 +6,7 @@ using namespace std;
 
 int resp, opc;
 char respChar[100], opcChar[100];
-
+//a
 class urna
 {
 private:
