@@ -10,13 +10,14 @@ public:
     int value;
     Nodo *next;
 };
-
+int tope = -1;
 void push(Nodo *&pila, int n)
 {
     Nodo *temp = new Nodo();
     temp->value = n;
     temp->next = pila;
     pila = temp;
+    tope++;
 };
 
 void pop(Nodo *&pila)
@@ -27,6 +28,7 @@ void pop(Nodo *&pila)
         pila = temp->next;
         cout << "Eliminado valor '" << temp->value << "'" << endl;
         delete (temp);
+        tope--;
     }
     else
     {
@@ -39,24 +41,33 @@ void display(Nodo *&pila)
     Nodo *temp = pila;
     if (temp)
     {
-        while (temp != NULL)
+        int i = tope;
+        system("cls");
+        do
         {
-            if (temp == pila)
+            printf("\n\n\t\t%c%c%c%c%c  \n", 201, 205, 205, 205, 187);
+            printf("Tope->");
+            do
             {
-                cout << "\t*" << temp->value << "*";
+                printf("\t\t%c ", 186, 205);
+                cout << temp->value;
                 temp = temp->next;
-            }
-            else
-            {
-                cout << "\t*" << temp->value << "*";
-                temp = temp->next;
-            }
-            cout << endl;
-        }
+                printf(" %c\n", 186);
+                i--;
+                if (i >= 0)
+                {
+                    printf("\t\t%c%c%c%c%c\n", 204, 205, 205, 205, 185); // Linea de en medio
+                }
+                else
+                {
+                    printf("\t\t%c%c%c%c%c\n", 200, 205, 205, 205, 188); // Linea final
+                }
+            } while (temp);
+        } while (temp);
     }
     else
     {
-        cout<<"PILA VACIA\n\n";
+        cout << "PILA VACIA\n\n";
     }
 };
 
@@ -76,9 +87,8 @@ void menu()
         display(pila);
         cout << "1) Push" << endl
              << "2) Pop" << endl
-             << "3) Mostrar tope" << endl
-             << "4) Mostrar pila" << endl
-             << "5) Salir" << endl;
+             << "3) Mostrar pila" << endl
+             << "4) Salir" << endl;
         cin >> opcChar;
         opc = validarNumInt(opcChar);
         switch (opc)
@@ -93,12 +103,9 @@ void menu()
             pop(pila);
             break;
         case 3:
-            /* code */
-            break;
-        case 4:
             display(pila);
             break;
-        case 5:
+        case 4:
             cout << "Gracias por su preferencia" << endl;
             break;
         default:
@@ -106,5 +113,5 @@ void menu()
             break;
         }
         system("PAUSE");
-    } while (opc != 5);
+    } while (opc != 4);
 };
