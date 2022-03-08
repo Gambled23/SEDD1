@@ -61,13 +61,46 @@ void cola::mostrar_cola()
     if (vacio() == 0)
     {
         system("cls");
+        printf("       ");
         for (int i = fin; i >= 0; i--)
         {
-            if (dato[i] != -1)
+            if (i >= 0)
             {
-                cout << "  " << dato[i];
+                printf("%c%c%c", 203, 205, 205);
+            }
+            else
+            {
+                printf("%c%c%c", 201, 205, 205);
             }
         }
+        printf("%c", 187);
+        cout << endl;
+        printf("Final->");
+        for (int i = fin; i >= 0; i--)
+        {
+            printf("%c", 186);
+            if (dato[i] != -1)
+            {
+                cout << dato[i] << " ";
+            }
+            
+        }
+        printf("%c <- Frente", 186);
+        cout << endl;
+        printf("       ");
+        for (int i = fin; i >= 0; i--)
+        {
+            if (i >= 0)
+            {
+                printf("%c%c%c", 202, 205, 205);
+            }
+            else
+            {
+                printf("%c%c%c%c", 200, 205, 205, 188);
+            }
+        }
+        printf("%c", 188);
+        cout << endl;
     }
 }
 
@@ -131,7 +164,7 @@ int main()
         cout << "[6].Salir" << endl;
         cin >> opcionChar;
         opcion = validarNumInt(opcionChar);
-        
+
         switch (opcion)
         {
         case 1:
