@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
+#include "validaciones.hpp"
 using namespace std;
 
 class cola
@@ -26,11 +27,13 @@ cola::cola()
 void cola::llenar()
 {
     int x;
+    char xChar[100];
     if (lleno() == 0)
     {
         fin++;
         cout << "Ingrese dato " << endl;
-        cin >> x;
+        cin >> xChar;
+        x = validarNumInt(xChar);
         dato[fin] = x;
     }
 }
@@ -112,6 +115,7 @@ int main()
 {
     int dato;
     int opcion;
+    char opcionChar[100];
     cola c;
     do
     {
@@ -125,7 +129,9 @@ int main()
         cout << "[4]Des-Encolar(pop)" << endl;
         cout << "[5]Mostrar cola" << endl;
         cout << "[6].Salir" << endl;
-        cin >> opcion;
+        cin >> opcionChar;
+        opcion = validarNumInt(opcionChar);
+        
         switch (opcion)
         {
         case 1:
