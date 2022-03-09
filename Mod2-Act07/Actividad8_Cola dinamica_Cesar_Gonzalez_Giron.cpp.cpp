@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include "validaciones.hpp"
 using namespace std;
-
+int fin = -1;
 class nodo
 {
 public:
@@ -48,6 +48,7 @@ void cola::inicializa()
 }
 void cola::queue(int n)
 {
+    fin++;
     nodo *nuevo_nodo = new nodo(n);
     if (h == nullptr) // si es el 1er elemento
     {
@@ -79,6 +80,7 @@ void cola::dequeue()
         h = h->siguiente;
         delete (aux);
     }
+    fin--;
 }
 void cola::first()
 {
@@ -106,14 +108,54 @@ void cola::mostrarCola()
 {
     nodo *aux = new nodo();
     aux = h;
-    while (aux != nullptr)
+    if (h != nullptr)
     {
-        cout << "Nombre de int: " << aux->dato << endl;
-        cout << "Codigo de int: " << aux->dato << endl;
-        cout << "ID de int: " << aux->dato << endl
-             << endl
-             << endl;
-        aux = aux->siguiente;
+        system("cls");
+        printf("        ");
+        for (int i = fin; i >= 0; i--)
+        {
+            if (i >= 0)
+            {
+                printf("%c%c%c", 203, 205, 205);
+            }
+            else
+            {
+                printf("%c%c%c", 201, 205, 205);
+            }
+        }
+        printf("%c", 187);
+        cout << endl;
+        printf("Frente->");
+        for (int i = fin; i >= 0; i--)
+        {
+            printf("%c", 186);
+            if (aux->dato != -1)
+            {
+                cout << aux->dato << " ";
+                aux = aux->siguiente;
+            }
+            
+        }
+        printf("%c <- Final", 186);
+        cout << endl;
+        printf("        ");
+        for (int i = fin; i >= 0; i--)
+        {
+            if (i >= 0)
+            {
+                printf("%c%c%c", 202, 205, 205);
+            }
+            else
+            {
+                printf("%c%c%c%c", 200, 205, 205, 188);
+            }
+        }
+        printf("%c", 188);
+        cout << endl;
+    }
+    else
+    {
+        cout<<"Cola vacia\n";
     }
 }
 cola *cola1 = new cola();
