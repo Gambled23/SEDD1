@@ -134,7 +134,6 @@ void cola::mostrarCola()
                 cout << aux->dato << " ";
                 aux = aux->siguiente;
             }
-            
         }
         printf("%c <- Final", 186);
         cout << endl;
@@ -155,7 +154,7 @@ void cola::mostrarCola()
     }
     else
     {
-        cout<<"Cola vacia\n";
+        cout << "Cola vacia\n";
     }
 }
 cola *cola1 = new cola();
