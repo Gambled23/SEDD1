@@ -9,7 +9,7 @@ class Nodo
 public:
     int value;
     Nodo *next;
-};
+}; //
 int tope = -1;
 void push(Nodo *&pila, int n)
 {
