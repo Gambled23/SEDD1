@@ -318,6 +318,7 @@ int main()
             list1.SearchName(id_);
             break;
         case 7:
+        
             break;
         case 8:
             list1.print();
