@@ -58,6 +58,7 @@ void menu()
             break;
         case 4:
             cout << "Ingresa el nombre del contacto a buscar:\n";
+            cin.sync();
             getline(cin, auxStr);
             lista->buscarNombre(auxStr);
             break;

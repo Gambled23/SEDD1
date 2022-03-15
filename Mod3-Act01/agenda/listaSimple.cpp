@@ -64,6 +64,8 @@ void listaSimple::insertarFinal(contacto n)
     }
     aux2->siguiente = nuevo_nodo;
     nuevo_nodo->siguiente = aux1;
+    nuevo_nodo->dato.id = ID;
+    ID++;
 }
 void listaSimple::buscarID(int n)
 {
@@ -96,15 +98,15 @@ void listaSimple::buscarPosicion(int n)
     bool bandera = false;
     nodo *aux = new nodo();
     aux = h;
-    int i = 0;
+    int i = 1;
     listaSimple::tamanoLista();
     if (n <= tamanoAgenda)
     {
-        do
+        while (i < n)
         {
             aux = aux->siguiente;
             i++;
-        } while (i < n);
+        }
         if (aux != nullptr)
         {
             cout << "ID: " << aux->dato.id << endl;
@@ -146,14 +148,21 @@ void listaSimple::mostrarLista()
 {
     nodo *actual = new nodo();
     actual = h;
-    while (actual != nullptr)
+    if (h)
     {
-        cout << "Nombre del contacto: " << actual->dato.nombre << endl;
-        cout << "ID del contacto: " << actual->dato.id << endl
-             << endl;
-        actual = actual->siguiente;
+        while (actual != nullptr)
+        {
+            cout << "Nombre del contacto: " << actual->dato.nombre << endl;
+            cout << "ID del contacto: " << actual->dato.id << endl
+                 << endl;
+            actual = actual->siguiente;
+        }
+        cout << endl;
     }
-    cout << endl;
+    else
+    {
+        cout << "Lista vacia";
+    }
 }
 
 void listaSimple::tamanoLista()
@@ -166,7 +175,6 @@ void listaSimple::tamanoLista()
         i++;
         actual = actual->siguiente;
     }
-    cout << "La lista tiene " << i << " elementos" << endl;
     tamanoAgenda = i;
 }
 void listaSimple::eliminarElemento(int n)
@@ -212,5 +220,6 @@ void listaSimple::eliminarLista()
         h = aux_borrar->siguiente;
         delete aux_borrar;
     } while (h != nullptr);
+    cout << "Agenda vaciada!\n";
 }
 #endif
