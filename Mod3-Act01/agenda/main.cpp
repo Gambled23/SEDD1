@@ -19,11 +19,11 @@ void menu()
         system("cls");
         cout << "Menu" << endl;
         cout << "1) Agregar contacto" << endl;
-        cout << "2) Buscar contacto" << endl;
-        cout << "3) Eliminar contacto" << endl;
-        cout << "4) Buscar por posicion" << endl;
-        cout << "5) Invertir" << endl;
-        cout << "6) Buscar por nombre" << endl;
+        cout << "2) Buscar por ID" << endl;
+        cout << "3) Buscar por posicion" << endl;
+        cout << "4) Buscar por nombre" << endl;
+        cout << "5) Eliminar contacto" << endl;
+        cout << "6) Invertir" << endl;
         cout << "7) Ordenar alfabeticamente" << endl;
         cout << "8) Imprimir datos" << endl;
         cout << "9) Modificar" << endl;
