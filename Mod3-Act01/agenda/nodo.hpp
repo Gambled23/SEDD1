@@ -7,10 +7,10 @@ using namespace std;
 class nodo
 {
 public:
-    string dato;
+    contacto dato;
     nodo *siguiente;
     nodo();
-    nodo(string e)
+    nodo(contacto e)
     {
         dato = e;
         siguiente = nullptr;
