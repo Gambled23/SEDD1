@@ -78,7 +78,10 @@ void menu()
             lista->mostrarLista();
             break;
         case 9:
-            /* code */
+            cout << "Ingresa la ID del contacto a modificar:\n";
+            cin >> auxChar;
+            aux = validarNumInt(auxChar);
+            lista->modificarDato(aux);
             break;
         case 10:
             lista->eliminarLista();

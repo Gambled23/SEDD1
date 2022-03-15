@@ -20,6 +20,7 @@ public:
     void buscarPosicion(int);
     void buscarNombre(string);
     void mostrarLista();
+    void modificarDato(int);
     void tamanoLista();
     void eliminarElemento(int);
     void eliminarLista(); // TODO
@@ -164,7 +165,22 @@ void listaSimple::mostrarLista()
         cout << "Lista vacia";
     }
 }
-
+void listaSimple::modificarDato(int n)
+{
+    nodo *aux = new nodo();
+    aux = h;
+    while (aux!= nullptr)
+    {
+        if (aux->dato.id == n)
+        {
+            cout<<"Ingresa el nuevo nombre\n";
+            cin.sync();
+            getline(cin,aux->dato.nombre);
+            cout<<"Contacto actualizado con existo!\n";
+        }
+        aux = aux->siguiente;
+    }
+}
 void listaSimple::tamanoLista()
 {
     nodo *actual = new nodo();
