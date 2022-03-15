@@ -97,19 +97,23 @@ void listaSimple::buscarPosicion(int n)
     nodo *aux = new nodo();
     aux = h;
     int i = 0;
-    do
+    listaSimple::tamanoLista();
+    if (n <= tamanoAgenda)
     {
-        aux = aux->siguiente;
-        i++;
-    } while (i < n);
-    if (aux != nullptr)
-    {
-        cout << "ID: " << aux->dato.id << endl;
-        cout << "Nombre: " << aux->dato.nombre << endl;
-    }
-    else
-    {
-        cout << "Elemento no encontrado\n";
+        do
+        {
+            aux = aux->siguiente;
+            i++;
+        } while (i < n);
+        if (aux != nullptr)
+        {
+            cout << "ID: " << aux->dato.id << endl;
+            cout << "Nombre: " << aux->dato.nombre << endl;
+        }
+        else
+        {
+            cout << "Elemento no encontrado\n";
+        }
     }
 }
 void listaSimple::buscarNombre(string n)
@@ -167,36 +171,46 @@ void listaSimple::tamanoLista()
 }
 void listaSimple::eliminarElemento(int n)
 {
-    if (h != NULL)
+    if (h != nullptr)
     {
         nodo *aux_borrar;
-        nodo *anterior = NULL;
+        nodo *anterior = nullptr;
         aux_borrar = h;
-        while ((aux_borrar != NULL) && (aux_borrar->dato.id != n)) // Recorrer lista
+        while ((aux_borrar != nullptr) && (aux_borrar->dato.id != n)) // Recorrer lista
         {
             anterior = aux_borrar;
             aux_borrar = aux_borrar->siguiente;
         }
-        if (aux_borrar == NULL) // Si el elemento no se encuentra en la lista(no se elimina)
+        if (aux_borrar == nullptr) // Si el elemento no se encuentra en la lista(no se elimina)
         {
-            cout << "El elemento no existe en la lista\n";
+            cout << "La ID no existe en la lista\n";
         }
-        else if (anterior == NULL) // El primer elemento es el que se elimina
+        else if (anterior == nullptr) // El primer elemento es el que se elimina
         {
-            h = h->siguiente;                                      // el inicio de la lista se cambia, pues se elimino el inicio
-            cout << "El elemento '" << n << "' ha sido borrado\n"; // Imprimir el elemento a borrar
+            h = h->siguiente;
+            cout << "El contacto con la ID '" << n << "' ha sido borrado\n";
             delete aux_borrar;
         }
         else // El elemento que se elimina no es el primer elemento
         {
-            anterior->siguiente = aux_borrar->siguiente;           // Se apunta el nodo anterior del eliminado al nodo siguiente del eliminado
-            cout << "El elemento '" << n << "' ha sido borrado\n"; // Imprimir el elemento a borrar
+            anterior->siguiente = aux_borrar->siguiente;
+            cout << "El contacto con la ID '" << n << "' ha sido borrado\n";
             delete aux_borrar;
         }
     }
+    else
+    {
+        cout << "Lista vacia\n";
+    }
 }
-
 void listaSimple::eliminarLista()
 {
+    nodo *aux_borrar;
+    do
+    {
+        aux_borrar = h;
+        h = aux_borrar->siguiente;
+        delete aux_borrar;
+    } while (h != nullptr);
 }
 #endif
