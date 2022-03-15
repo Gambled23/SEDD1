@@ -10,12 +10,13 @@ class contacto
 {
 public:
     contacto();
-
-
+    string nombre;
+    int id;
 };
 
 contacto::contacto()
 {
-
+    nombre = "";
+    id = 0;
 }
 #endif
