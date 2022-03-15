@@ -78,7 +78,7 @@ List<T>::~List() {}
 template <typename T>
 void List<T>::add_head(T nombre_)
 {
-    Nodo<T> *new_nodo = new Nodo<T>(nombre_);
+    /*Nodo<T> *new_nodo = new Nodo<T>(nombre_);
     new_nodo->id = ID;
     ID++;
     Nodo<T> *temp = ptrHead;
@@ -95,7 +95,7 @@ void List<T>::add_head(T nombre_)
             temp = temp->next;
         }
     }
-    number_nodo++;
+    number_nodo++;*/
 }
 
 template <typename T>
