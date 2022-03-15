@@ -28,10 +28,10 @@ void menu()
         cout << "3) Buscar por posicion" << endl;
         cout << "4) Buscar por nombre" << endl;
         cout << "5) Eliminar contacto" << endl;
-        cout << "6) Invertir" << endl;                // TODO
+        cout << "6) Invertir" << endl;                
         cout << "7) Ordenar alfabeticamente" << endl; // TODO
         cout << "8) Imprimir datos" << endl;
-        cout << "9) Modificar" << endl; // TODO
+        cout << "9) Modificar" << endl;
         cout << "10) Eliminar todo" << endl;
         cout << "0) Salir" << endl;
         cin >> opcChar;
@@ -69,7 +69,7 @@ void menu()
             lista->eliminarElemento(aux);
             break;
         case 6:
-            /* code */
+            lista->invertir();
             break;
         case 7:
             /* code */

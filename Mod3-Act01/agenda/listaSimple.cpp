@@ -23,6 +23,7 @@ public:
     void modificarDato(int);
     void tamanoLista();
     void eliminarElemento(int);
+    void invertir();
     void eliminarLista(); // TODO
 
 private:
@@ -162,21 +163,21 @@ void listaSimple::mostrarLista()
     }
     else
     {
-        cout << "Lista vacia";
+        cout << "Lista vacia\n";
     }
 }
 void listaSimple::modificarDato(int n)
 {
     nodo *aux = new nodo();
     aux = h;
-    while (aux!= nullptr)
+    while (aux != nullptr)
     {
         if (aux->dato.id == n)
         {
-            cout<<"Ingresa el nuevo nombre\n";
+            cout << "Ingresa el nuevo nombre\n";
             cin.sync();
-            getline(cin,aux->dato.nombre);
-            cout<<"Contacto actualizado con existo!\n";
+            getline(cin, aux->dato.nombre);
+            cout << "Contacto actualizado con existo!\n";
         }
         aux = aux->siguiente;
     }
@@ -226,6 +227,20 @@ void listaSimple::eliminarElemento(int n)
     {
         cout << "Lista vacia\n";
     }
+}
+void listaSimple::invertir()
+{
+    nodo *actual = h;
+    nodo *anterior = nullptr, *siguiente = nullptr;
+
+    while (actual != nullptr)
+    {
+        siguiente = actual->siguiente;
+        actual->siguiente = anterior;
+        anterior = actual;
+        actual = siguiente;
+    }
+    h = anterior;
 }
 void listaSimple::eliminarLista()
 {
