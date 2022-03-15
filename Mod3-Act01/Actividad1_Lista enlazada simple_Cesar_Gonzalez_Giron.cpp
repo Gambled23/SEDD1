@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include "validaciones.hpp"
 using namespace std;
-
+int ID = 1;
 template <typename T>
 class Nodo
 {
@@ -54,7 +54,7 @@ private:
 public:
     List();
     ~List();
-    void add_head(T, T);
+    void add_head(T);
     void add_end(T, T);
     void add_sort(T, T);
     void delete_position(int);
@@ -76,9 +76,11 @@ List<T>::~List() {}
 
 // Insertar al inicio
 template <typename T>
-void List<T>::add_head(T id_, T nombre_)
+void List<T>::add_head(T nombre_)
 {
-    Nodo<T> *new_nodo = new Nodo<T>(id_, nombre_);
+    Nodo<T> *new_nodo = new Nodo<T>(nombre_);
+    new_nodo->id = ID;
+    ID++;
     Nodo<T> *temp = ptrHead;
     if (!ptrHead)
     {
@@ -270,21 +272,9 @@ int main()
         case 1:
             system("cls");
             cin.sync();
-            cout << "ID \n";
-            do
-            {
-
-                getline(cin, id_);
-
-                if (id_ <= "0" or id_ >= "9")
-                {
-                    cout << "Ingresa puros numeros" << endl;
-                }
-            } while (id_ <= "0" or id_ >= "9");
             cout << "Nombre \n";
             getline(cin, nombre_);
-
-            list1.add_head(id_, nombre_);
+            list1.add_head(nombre_);
             list1.print();
             break;
         case 2:
