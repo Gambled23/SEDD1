@@ -11,7 +11,6 @@ listaSimple *lista = new listaSimple();
 int main()
 {
     menu();
-    system("PAUSE");
     return 0;
 }
 void menu()
@@ -22,6 +21,7 @@ void menu()
     do
     {
         system("cls");
+        lista->mostrarLista();
         cout << "Menu" << endl;
         cout << "1) Agregar contacto" << endl;
         cout << "2) Buscar por ID" << endl;

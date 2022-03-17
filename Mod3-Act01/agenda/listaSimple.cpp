@@ -1,13 +1,13 @@
 #ifndef LISTASIMPLE_H
 #define LISTASIMPLE_H
-#include <iostream>
 #include <conio.h>
 #include <cstdlib>
+#include <iostream>
 #include "nodo.hpp"
 #pragma once
-using namespace std;
 int ID = 1;
 int tamanoAgenda;
+using namespace std;
 class listaSimple
 {
 public:
@@ -48,6 +48,7 @@ void listaSimple::insertaInicio(contacto n)
     h = nuevo_nodo;
     nuevo_nodo->siguiente = aux1;
     nuevo_nodo->dato.id = ID;
+    cout << "Se ha agregado el contacto '" << nuevo_nodo->dato.nombre << "' con la ID "<<nuevo_nodo->dato.id<<endl;
     ID++;
 }
 
@@ -149,6 +150,8 @@ void listaSimple::buscarNombre(string n)
 }
 void listaSimple::mostrarLista()
 {
+    system("cls");
+    cout<<"\t--AGENDA--\n\n";
     nodo *actual = new nodo();
     actual = h;
     if (h)
@@ -164,8 +167,9 @@ void listaSimple::mostrarLista()
     }
     else
     {
-        cout << "Lista vacia\n";
+        cout << "Agenda vacia\n\n";
     }
+    cout<<"-------------------------\n\n";
 }
 void listaSimple::modificarDato(int n)
 {
@@ -175,7 +179,7 @@ void listaSimple::modificarDato(int n)
     {
         if (aux->dato.id == n)
         {
-            cout << "Ingresa el nuevo nombre\n";
+            cout << "Ingresa el nuevo nombre de '"<<aux->dato.nombre<<"'\n";
             cin.sync();
             getline(cin, aux->dato.nombre);
             cout << "Contacto actualizado con existo!\n";
@@ -220,7 +224,7 @@ void listaSimple::eliminarElemento(int n)
         else // El elemento que se elimina no es el primer elemento
         {
             anterior->siguiente = aux_borrar->siguiente;
-            cout << "El contacto con la ID '" << n << "' ha sido borrado\n";
+            cout << "El contacto '"<<aux_borrar->dato.nombre<<"' con la ID '" << n << "' ha sido borrado\n";
             delete aux_borrar;
         }
     }
@@ -241,6 +245,7 @@ void listaSimple::invertir()
         actual = siguiente;
     }
     h = anterior;
+    cout<<"Agenda invertida\n";
 }
 void listaSimple::ordenarAlfabeticamente()
 {
@@ -258,16 +263,17 @@ void listaSimple::ordenarAlfabeticamente()
                 if (actual->dato.nombre > actual->siguiente->dato.nombre)
                 {
                     auxNombre = actual->dato.nombre;
-                    auxId = actual->dato.id; //!
+                    auxId = actual->dato.id;
                     actual->dato.nombre = actual->siguiente->dato.nombre;
-                    actual->dato.id = actual->siguiente->dato.id; //!
+                    actual->dato.id = actual->siguiente->dato.id;
                     actual->siguiente->dato.nombre = auxNombre;
-                    actual->siguiente->dato.id = auxId; //!
+                    actual->siguiente->dato.id = auxId;
                 }
                 actual = actual->siguiente;
             }
         }
     }
+    cout<<"La agenda ha sido ordenada alfabeticamente\n";
 }
 void listaSimple::eliminarLista()
 {
