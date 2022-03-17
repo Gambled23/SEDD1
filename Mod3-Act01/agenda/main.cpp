@@ -29,7 +29,7 @@ void menu()
         cout << "4) Buscar por nombre" << endl;
         cout << "5) Eliminar contacto" << endl;
         cout << "6) Invertir" << endl;
-        cout << "7) Ordenar alfabeticamente" << endl; //!Ya funciona pero las ID no se cambian
+        cout << "7) Ordenar alfabeticamente" << endl; 
         cout << "8) Imprimir datos" << endl;
         cout << "9) Modificar" << endl;
         cout << "10) Eliminar todo" << endl;

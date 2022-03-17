@@ -258,11 +258,11 @@ void listaSimple::ordenarAlfabeticamente()
                 if (actual->dato.nombre > actual->siguiente->dato.nombre)
                 {
                     auxNombre = actual->dato.nombre;
-                    //auxId = actual->dato.id;
+                    auxId = actual->dato.id; //!
                     actual->dato.nombre = actual->siguiente->dato.nombre;
-                    //actual->dato.id = actual->siguiente->dato.id;
+                    actual->dato.id = actual->siguiente->dato.id; //!
                     actual->siguiente->dato.nombre = auxNombre;
-                    //actual->siguiente->dato.nombre = auxId;
+                    actual->siguiente->dato.id = auxId; //!
                 }
                 actual = actual->siguiente;
             }
