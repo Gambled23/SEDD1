@@ -24,6 +24,7 @@ public:
     void tamanoLista();
     void eliminarElemento(int);
     void invertir();
+    void ordenarAlfabeticamente();
     void eliminarLista(); // TODO
 
 private:
@@ -232,7 +233,6 @@ void listaSimple::invertir()
 {
     nodo *actual = h;
     nodo *anterior = nullptr, *siguiente = nullptr;
-
     while (actual != nullptr)
     {
         siguiente = actual->siguiente;
@@ -241,6 +241,33 @@ void listaSimple::invertir()
         actual = siguiente;
     }
     h = anterior;
+}
+void listaSimple::ordenarAlfabeticamente()
+{
+    listaSimple::tamanoLista();
+    nodo *actual = h;
+    string auxNombre;
+    int auxId;
+    for (size_t i = 0; i < tamanoAgenda; i++)
+    {
+        actual = h;
+        for (size_t j = 0; j < tamanoAgenda; j++)
+        {
+            if (actual->siguiente != nullptr)
+            {
+                if (actual->dato.nombre > actual->siguiente->dato.nombre)
+                {
+                    auxNombre = actual->dato.nombre;
+                    //auxId = actual->dato.id;
+                    actual->dato.nombre = actual->siguiente->dato.nombre;
+                    //actual->dato.id = actual->siguiente->dato.id;
+                    actual->siguiente->dato.nombre = auxNombre;
+                    //actual->siguiente->dato.nombre = auxId;
+                }
+                actual = actual->siguiente;
+            }
+        }
+    }
 }
 void listaSimple::eliminarLista()
 {

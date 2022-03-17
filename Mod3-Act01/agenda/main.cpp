@@ -28,7 +28,7 @@ void menu()
         cout << "3) Buscar por posicion" << endl;
         cout << "4) Buscar por nombre" << endl;
         cout << "5) Eliminar contacto" << endl;
-        cout << "6) Invertir" << endl;                
+        cout << "6) Invertir" << endl;
         cout << "7) Ordenar alfabeticamente" << endl; // TODO
         cout << "8) Imprimir datos" << endl;
         cout << "9) Modificar" << endl;
@@ -72,7 +72,7 @@ void menu()
             lista->invertir();
             break;
         case 7:
-            /* code */
+            lista->ordenarAlfabeticamente();
             break;
         case 8:
             lista->mostrarLista();
