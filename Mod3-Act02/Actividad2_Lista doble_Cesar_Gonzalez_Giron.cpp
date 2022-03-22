@@ -74,6 +74,7 @@ void List<TIPO>::Add(TIPO v) // Agregar al Nodo
         nuevo_nodo->siguiente = h;
         h = nuevo_nodo;
     }
+    List::ordenar();
 }
 template <class TIPO>
 void List<TIPO>::remove(TIPO v)
@@ -193,20 +194,17 @@ int main()
     list.Add(10);
     list.Add(40);
     list.Add(30);
-    list.ordenar();
     list.print();
     list.primerElemento();
     list.ultimoElemento();
     cout << "\nInsert new nodes: 80,85" << endl;
     list.Add(80);
     list.Add(85);
-    list.ordenar();
     list.print();
     list.primerElemento();
     list.ultimoElemento();
     cout << "\nremove Node: 40" << endl;
     list.remove(40);
-    list.ordenar();
     list.print();
     system("PAUSE");
 }
