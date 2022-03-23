@@ -36,13 +36,13 @@ public:
     Node<TIPO> *h = nullptr, *t = nullptr;
     void Add(TIPO v);
     void remove(TIPO v);
+    void removeFinal();
     void print();
-    void siguiente();
-    void anterior();
-    void ordenar();
+    void ordenarAscendente();
     void tamanoLista();
     void primerElemento();
     void ultimoElemento();
+    void buscarElemento(TIPO);
 
 private:
     Node<TIPO> *ptrList; // puntero de la lista
@@ -76,7 +76,6 @@ void List<TIPO>::Add(TIPO v) // Agregar al Nodo
         nuevo_nodo->siguiente = h;
         h = nuevo_nodo;
     }
-    List::ordenar();
 }
 template <class TIPO>
 void List<TIPO>::remove(TIPO v)
@@ -124,6 +123,28 @@ void List<TIPO>::remove(TIPO v)
     }
 }
 template <class TIPO>
+void List<TIPO>::removeFinal()
+{
+    Node<TIPO> *aux_borrar;
+    aux_borrar = t;
+    if (h != nullptr and h != t)
+    {
+        t = t->anterior;
+        t->siguiente = nullptr;
+        delete aux_borrar;
+    }
+    else if (h == t)
+    {
+        h = nullptr;
+        t = nullptr;
+        delete aux_borrar;
+    }
+    else
+    {
+        cout << "Lista vacia" << endl;
+    }
+}
+template <class TIPO>
 void List<TIPO>::print()
 {
     if (h != nullptr)
@@ -156,7 +177,7 @@ void List<TIPO>::tamanoLista()
     tamanoLST = i;
 }
 template <class TIPO>
-void List<TIPO>::ordenar()
+void List<TIPO>::ordenarAscendente()
 {
     List::tamanoLista();
     Node<TIPO> *actual = h;
@@ -189,6 +210,45 @@ void List<TIPO>::ultimoElemento()
 {
     cout << "Last Node: " << t->dato << endl;
 }
+template <class TIPO>
+void List<TIPO>::buscarElemento(TIPO v)
+{
+    Node<TIPO> *actual;
+    actual = h;
+    bool bandera = false;
+    int contador = 0;
+    if (h)
+    {
+        while ((actual != nullptr) and (bandera != true))
+        {
+            contador++;
+            if (actual->dato == v)
+            {
+                bandera = true;
+                cout << "El elemento '" << v << "' se encuentra en la posicion " << contador << ", en la direccion " << actual << endl;
+            }
+            else
+            {
+                actual = actual->siguiente;
+            }
+        }
+        if (bandera != true)
+        {
+            cout << "El elemento no ha sido encontrado\n";
+        }
+    }
+    else
+    {
+        cout << "Lista vacia\n";
+    }
+}
+/*
+TODO
+//Buscar numero
+//Ordenar de forma ascendente
+Ordenar de forma descendente
+//Remover el ultimo nodo
+*/
 int main()
 {
     List<int> list;
@@ -202,7 +262,9 @@ int main()
              << "2) Eliminar del final" << endl
              << "3) Buscar elemento" << endl
              << "4) Ordenar de forma ascendente" << endl
-             << "5) Ordenar de forma descendente" << endl;
+             << "5) Ordenar de forma descendente" << endl
+             << "6) Mostrar lista" << endl
+             << "0) Salir del programa" << endl;
         cin >> opcChar;
         opc = validarNumInt(opcChar);
         switch (opc)
@@ -214,25 +276,31 @@ int main()
             list.Add(elemento);
             break;
         case 2:
-            cout << "Ingrese el elemento a eliminar\n";
-            cin >> elementoChar;
-            elemento = validarNumInt(elementoChar);
-            list.remove(elemento);
+            list.removeFinal();
             break;
         case 3:
-            /* code */
+            cout << "Ingrese el elemento a buscar\n";
+            cin >> elementoChar;
+            elemento = validarNumInt(elementoChar);
+            list.buscarElemento(elemento);
             break;
         case 4:
-            /* code */
+            list.ordenarAscendente();
+            cout << "Lista ordenada\n";
             break;
         case 5:
             /* code */
+            break;
+        case 6:
+            list.print();
+            break;
+        case 0:
+            cout << "Gracias por su preferencia\n";
             break;
         default:
             cout << "Opcion invalida\n";
             break;
         }
+        system("PAUSE");
     } while (opc != 0);
-
-    system("PAUSE");
 }
