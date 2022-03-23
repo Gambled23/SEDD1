@@ -2,6 +2,13 @@
 #include "validaciones.hpp"
 using namespace std;
 int tamanoLST = 0;
+/* 
+TODO
+//Buscar numero
+//Ordenar de forma ascendente
+//Ordenar de forma descendente
+//Remover el ultimo nodo
+*/
 template <class TIPO>
 class List;
 template <class TIPO>
@@ -39,6 +46,7 @@ public:
     void removeFinal();
     void print();
     void ordenarAscendente();
+    void ordenarDescendente();
     void tamanoLista();
     void primerElemento();
     void ultimoElemento();
@@ -201,6 +209,30 @@ void List<TIPO>::ordenarAscendente()
     }
 }
 template <class TIPO>
+void List<TIPO>::ordenarDescendente()
+{
+    List::tamanoLista();
+    Node<TIPO> *actual = h;
+    int auxNum;
+    for (size_t i = 0; i < tamanoLST; i++)
+    {
+        actual = h;
+        for (size_t j = 0; j < tamanoLST; j++)
+        {
+            if (actual->siguiente != nullptr)
+            {
+                if (actual->dato < actual->siguiente->dato)
+                {
+                    auxNum = actual->dato;
+                    actual->dato = actual->siguiente->dato;
+                    actual->siguiente->dato = auxNum;
+                }
+                actual = actual->siguiente;
+            }
+        }
+    }
+}
+template <class TIPO>
 void List<TIPO>::primerElemento()
 {
     cout << "First Node: " << h->dato << endl;
@@ -242,13 +274,7 @@ void List<TIPO>::buscarElemento(TIPO v)
         cout << "Lista vacia\n";
     }
 }
-/*
-TODO
-//Buscar numero
-//Ordenar de forma ascendente
-Ordenar de forma descendente
-//Remover el ultimo nodo
-*/
+
 int main()
 {
     List<int> list;
@@ -286,10 +312,11 @@ int main()
             break;
         case 4:
             list.ordenarAscendente();
-            cout << "Lista ordenada\n";
+            cout << "Lista ordenada ascendentemente\n";
             break;
         case 5:
-            /* code */
+            list.ordenarDescendente();
+            cout<<"Lista ordenada descententemente\n";
             break;
         case 6:
             list.print();
