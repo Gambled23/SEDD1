@@ -16,7 +16,7 @@ int main()
 void menu()
 {
     int opc = 1;
-    string dato;
+    int dato;
     while (opc != 0)
     {
         system("cls");
@@ -56,7 +56,7 @@ void menu()
             lista->eliminarElemento(dato);
             break;
         case 6:
-            lista->eliminarLista(dato);
+            lista->eliminarLista();
             break;
         case 7:
             lista->tamanoLista();

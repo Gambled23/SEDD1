@@ -7,7 +7,7 @@
 #pragma once
 
 using namespace std;
-
+int tamLista = 0;
 class listaSimple
 {
 public:
@@ -15,13 +15,13 @@ public:
     nodo *h; // Puntero que apunta a inicio
     nodo *t; // Puntero que apunta a final
     void inicializa();
-    void insertaInicio(string);
-    void insertarFinal(string);
+    void insertaInicio(int);
+    void insertarFinal(int);
     void mostrarLista();
     void tamanoLista();
-    void buscarElemento(string);
-    void eliminarElemento(string);
-    void eliminarLista(string &);
+    void buscarElemento(int);
+    void eliminarElemento(int);
+    void eliminarLista();
 
 private:
 };
@@ -38,55 +38,49 @@ void listaSimple::inicializa()
     t = nullptr;
 }
 
-/* notinskis
-    Nodo = nodo
-    dato = elem
-    lista = h (apunta al inicio de la lista)
-    n = e
-    siguiente = sig
-*/
-
 //* *OPERACIONES
-void listaSimple::insertaInicio(string n)
+void listaSimple::insertaInicio(int n)
 {
-    nodo *nuevo_nodo = new nodo(); // crear nuevo nodo dinamico
-    nuevo_nodo->dato = n;          // asignar dato al nuevo nodo
-    nodo *aux1 = h;                // Auxiliar para saber el siguiente
-    h = nuevo_nodo;                // Apuntar al 1er elemento
-    nuevo_nodo->siguiente = aux1;  // Asignar el puntero del nuevo nodo el siguiente nodo
-    if (h->siguiente == nullptr)
-    {
-        t = nuevo_nodo; // Apuntar t al final
-    }
-}
-
-void listaSimple::insertarFinal(string n)
-{
-    nodo *nuevo_nodo = new nodo(); // crear nuevo nodo dinamico
-    nuevo_nodo->dato = n;          // asignar dato al nuevo nodo
-    if (h == nullptr)
+    nodo *nuevo_nodo = new nodo(n); // crear nuevo nodo dinamico
+    if (!h)
     {
         h = nuevo_nodo;
+        t = nuevo_nodo;
     }
-    nodo *aux1 = h; // Auxiliar para saber el siguiente
-    nodo *aux2;
-    while (aux1 != nullptr)
+    else
     {
-        aux2 = aux1;
-        aux1 = aux1->siguiente;
+        nuevo_nodo->siguiente = h;
+        h = nuevo_nodo;
     }
-    aux2->siguiente = nuevo_nodo;
-    nuevo_nodo->siguiente = aux1; // Asignar el puntero del nuevo nodo el siguiente nod
-    t = nuevo_nodo;
+    t->siguiente = h;
+    tamLista++;
+}
+
+void listaSimple::insertarFinal(int n)
+{
+    nodo *nuevo_nodo = new nodo(n); // crear nuevo nodo dinamico
+    if (!h)
+    {
+        h = nuevo_nodo;
+        t = nuevo_nodo;
+    }
+    else
+    {
+        t->siguiente = nuevo_nodo;
+        t = nuevo_nodo;
+    }
+    t->siguiente = h;
+    tamLista++;
 }
 
 void listaSimple::mostrarLista()
 {
     nodo *actual = new nodo(); // Creamos nodo actual para saber en cual nodo estamos ubicados mientrar recorremos la lista
     actual = h;                // Apuntar el nodo actual al inicio, para recorrer desde el 1er elemento
-
-    while (actual != nullptr) // Mientras sigamos apuntando a un dato, y no al NULL, significa que seguimos en la lista
+    int i = 0;
+    while (i < tamLista) // Mientras sigamos apuntando a un dato, y no al nullptr, significa que seguimos en la lista
     {
+        i++;
         cout << actual->dato << " - "; // Imprimir el dato en el que nos encontramos
         actual = actual->siguiente;    // Recorrer un nodo
     }
@@ -98,21 +92,22 @@ void listaSimple::tamanoLista()
     nodo *actual = new nodo(); // Creamos nodo actual para saber en cual nodo estamos ubicados mientrar recorremos la lista
     actual = h;
     int i = 0;
-    while (actual != nullptr) // Mientras sigamos apuntando a un dato, y no al NULL, significa que seguimos en la lista
+    while (actual->siguiente != h) // Mientras sigamos apuntando a un dato, y no al nullptr, significa que seguimos en la lista
     {
         i++;
         actual = actual->siguiente; // Recorrer un nodo
+        tamLista = i;
     }
-    cout<<"La lista tiene "<<i<<" elementos"<<endl;
+    cout << "La lista tiene " << i << " elementos" << endl;
 }
 
-void listaSimple::buscarElemento(string n)
+void listaSimple::buscarElemento(int n)
 {
     bool bandera = false;
     nodo *actual = new nodo(); // Creamos nodo actual para saber en cual nodo estamos ubicados mientrar recorremos la lista
     actual = h;                // Apuntar el nodo actual al inicio, para recorrer desde el 1er elemento
 
-    while ((actual != nullptr)) // Mientras sigamos apuntando a un dato, y no al NULL, significa que seguimos en la lista
+    while (actual->siguiente != h) // Mientras sigamos apuntando a un dato, y no al nullptr, significa que seguimos en la lista
     {
         if (actual->dato == n)
         {
@@ -130,27 +125,36 @@ void listaSimple::buscarElemento(string n)
     }
 }
 
-void listaSimple::eliminarElemento(string n)
+void listaSimple::eliminarElemento(int n)
 {
-    if (h != NULL)
-    {   
+    if (h != nullptr)
+    {
         nodo *aux_borrar;
-        nodo *anterior = NULL;
+        nodo *anterior = nullptr;
         aux_borrar = h;
-        while ((aux_borrar != NULL) && (aux_borrar->dato != n)) // Recorrer lista
+        int i = 0;
+        bool bandera = true;
+        while ((i<tamLista) && (aux_borrar->dato != n)) // Recorrer lista
         {
+            bandera = false;
             anterior = aux_borrar;
             aux_borrar = aux_borrar->siguiente;
+            i++;
+            if (aux_borrar->dato == n)
+            {
+                bandera = true;
+            }
         }
-        if (aux_borrar == NULL) // Si el elemento no se encuentra en la lista(no se elimina)
+        if (!bandera) // Si el elemento no se encuentra en la lista(no se elimina)
         {
             cout << "El elemento no existe en la lista\n";
         }
-        else if (anterior == NULL) // El primer elemento es el que se elimina
+        else if (anterior == nullptr) // El primer elemento es el que se elimina
         {
             h = h->siguiente;                                      // el inicio de la lista se cambia, pues se elimino el inicio
             cout << "El elemento '" << n << "' ha sido borrado\n"; // Imprimir el elemento a borrar
             delete aux_borrar;
+            tamLista--;
         }
         else // El elemento que se elimina no es el primer elemento
         {
@@ -161,18 +165,33 @@ void listaSimple::eliminarElemento(string n)
             {
                 t = anterior;
             }
+            tamLista--;
         }
     }
+    t->siguiente = h;
+    
 }
 
-void listaSimple::eliminarLista(string &n)
+void listaSimple::eliminarLista()
 {
-    while (h != NULL) // Para hacer la eliminacion de cada nodo hasta que este vacia
+    nodo *aux; // Crear auxiliar que apunte al inicio de la lista
+    if (h)
     {
-        nodo *aux = h; // Crear auxiliar que apunte al inicio de la lista
-        n = aux->dato; // Guardar el elemento antes de eliminar el nodo
-        h = aux->siguiente;
-        delete aux;
+        int i = 0;
+        while (i<tamLista) // Para hacer la eliminacion de cada nodo hasta que este vacia
+        {
+            aux = h;
+            h = aux->siguiente;
+            delete aux;
+            i++;
+        }
+        h = nullptr;
+        t = nullptr;
+        tamLista = 0;
+    }
+    else
+    {
+        cout << "Lista vacia\n";
     }
     cout << "La lista ha sido vaciada\n";
     t = nullptr;

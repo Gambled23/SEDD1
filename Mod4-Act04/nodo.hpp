@@ -6,10 +6,10 @@ using namespace std;
 class nodo
 {
 public:
-    string dato;
+    int dato;
     nodo *siguiente;
     nodo();
-    nodo(string e)
+    nodo(int e)
     {
         dato = e;
         siguiente = nullptr;
