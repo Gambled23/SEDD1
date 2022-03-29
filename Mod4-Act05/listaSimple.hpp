@@ -4,6 +4,7 @@
 #include <conio.h>
 #include <cstdlib>
 #include "nodo.hpp"
+#include "validaciones.hpp"
 #pragma once
 
 using namespace std;
@@ -22,6 +23,8 @@ public:
     void buscarElemento(int);
     void eliminarElemento(int);
     void eliminarLista();
+    void modificarElemento(int);
+    void buscarPorPosicion(int);
 
 private:
 };
@@ -134,7 +137,7 @@ void listaSimple::eliminarElemento(int n)
         aux_borrar = h;
         int i = 0;
         bool bandera = true;
-        while ((i<tamLista) && (aux_borrar->dato != n)) // Recorrer lista
+        while ((i < tamLista) && (aux_borrar->dato != n)) // Recorrer lista
         {
             bandera = false;
             anterior = aux_borrar;
@@ -169,7 +172,6 @@ void listaSimple::eliminarElemento(int n)
         }
     }
     t->siguiente = h;
-    
 }
 
 void listaSimple::eliminarLista()
@@ -178,7 +180,7 @@ void listaSimple::eliminarLista()
     if (h)
     {
         int i = 0;
-        while (i<tamLista) // Para hacer la eliminacion de cada nodo hasta que este vacia
+        while (i < tamLista) // Para hacer la eliminacion de cada nodo hasta que este vacia
         {
             aux = h;
             h = aux->siguiente;
@@ -196,4 +198,49 @@ void listaSimple::eliminarLista()
     cout << "La lista ha sido vaciada\n";
     t = nullptr;
 }
+void listaSimple::modificarElemento(int n)
+{
+    nodo *actual = h;
+    bool bandera = false;
+    int dato;
+    char datoChar[100];
+    while (actual->siguiente != h and !bandera) // Mientras sigamos apuntando a un dato, y no al nullptr, significa que seguimos en la lista
+    {
+        if (actual->dato == n)
+        {
+            bandera = true;
+        }
+        else
+        {
+            actual = actual->siguiente; // Recorrer un nodo
+        }
+    }
+    if (bandera)
+    {
+        cout << "Cual es el nuevo elemento por el que quieres reemplazar el '" << actual->dato << "'?";
+        cin >> datoChar;
+        dato = validarNumInt(datoChar);
+        actual->dato = dato;
+        cout << "El elemento ha sido reemplazado\n";
+    }
+}
+void listaSimple::buscarPorPosicion(int n)
+{
+    nodo *aux = h;
+    int i = 1;
+    if (h)
+    {
+        while (i < n)
+        {
+            aux = aux->siguiente;
+            i++;
+        }
+        cout << "El dato en la posicion " << n << " es '" << aux->dato << "'\n";
+    }
+    else
+    {
+        cout << "Lista vacia\n";
+    }
+}
+
 #endif
